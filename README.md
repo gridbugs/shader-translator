@@ -24,8 +24,6 @@ Options:
 ```
 
 ## Example
-
-### Basic
 ```bash
 $ echo -e "#version 450\nvoid main() {}" | shader-translator --fragment > /tmp/frag.spv
 $ file /tmp/frag.spv
