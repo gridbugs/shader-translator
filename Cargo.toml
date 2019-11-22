@@ -4,6 +4,10 @@ description = "Tiny program to read glsl from stdin, and write spir-v to stdout"
 version = "0.1.0"
 authors = ["Stephen Sherratt <stephen@sherra.tt>"]
 edition = "2018"
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/stevebob/shader-translator"
+repository = "https://github.com/stevebob/shader-translator"
 
 [dependencies]
 shaderc = "0.6"
