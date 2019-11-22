@@ -1,0 +1,10 @@
+[package]
+name = "shader-translator"
+description = "Tiny program to read glsl from stdin, and write spir-v to stdout"
+version = "0.1.0"
+authors = ["Stephen Sherratt <stephen@sherra.tt>"]
+edition = "2018"
+
+[dependencies]
+shaderc = "0.6"
+simon = "0.3"
