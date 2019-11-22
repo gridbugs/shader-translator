@@ -1,7 +1,16 @@
 # Shader Translator
 
+[![Version](https://img.shields.io/crates/v/shader-translator.svg)](https://crates.io/crates/shader-translator)
+[![dependency status](https://deps.rs/repo/github/stevebob/shader-translator/status.svg)](https://deps.rs/repo/github/stevebob/shader-translator)
+
+
 This is a binary wrapper of [shaderc](https://crates.io/crates/shaderc) which compiles
 GLSL shader source code read from stdin, into SPIR-V source code written to stdout.
+
+## Installation
+```
+$ cargo install shader-translator
+```
 
 ## Usage
 ```bash
