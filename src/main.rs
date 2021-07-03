@@ -1,4 +1,3 @@
-use simon::Arg;
 use std::io::{self, Read, Write};
 use std::process;
 
@@ -7,13 +6,13 @@ struct Args {
 }
 
 impl Args {
-    fn arg() -> impl simon::Arg<Item = Self> {
-        simon::args_map! {
+    fn parser() -> impl meap::Parser<Item = Self> {
+        meap::let_map! {
             let {
-                shader_kind = simon::args_choice! {
-                    simon::flag("f", "fragment", "fragment shader").some_if(shaderc::ShaderKind::Fragment),
-                    simon::flag("v", "vertex", "vertex shader").some_if(shaderc::ShaderKind::Vertex),
-                }.required();
+                shader_kind = meap::choose_at_most_one! {
+                    flag('f').name("fragment").desc("fragment shader").some_if(shaderc::ShaderKind::Fragment),
+                    flag('v').name("vertex").desc("vertex shader").some_if(shaderc::ShaderKind::Vertex),
+                }.required_general("choose a type of shader (--fragment or --vertex)");
             } in {
                 Args { shader_kind }
             }
@@ -22,7 +21,9 @@ impl Args {
 }
 
 fn main() {
-    let Args { shader_kind } = Args::arg().with_help_default().parse_env_or_exit();
+    env_logger::init();
+    use meap::Parser;
+    let Args { shader_kind } = Args::parser().with_help_default().parse_env_or_exit();
     let mut buffer = String::new();
     io::stdin()
         .read_to_string(&mut buffer)

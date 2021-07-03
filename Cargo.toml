@@ -11,4 +11,5 @@ repository = "https://github.com/stevebob/shader-translator"
 
 [dependencies]
 shaderc = "0.6"
-simon = "0.3"
+meap = "0.4"
+env_logger = "0.8"
