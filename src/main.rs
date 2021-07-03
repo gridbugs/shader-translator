@@ -4,6 +4,7 @@ use std::process;
 struct Args {
     shader_kind: shaderc::ShaderKind,
     target_env: shaderc::TargetEnv,
+    optimization_level: shaderc::OptimizationLevel,
     debug: bool,
 }
 
@@ -20,9 +21,14 @@ impl Args {
                     flag("opengl").desc("target opengl").some_if(shaderc::TargetEnv::OpenGL),
                     flag("opengl-compat").desc("target opengl-compat").some_if(shaderc::TargetEnv::OpenGLCompat),
                 }.required_general("choose a target env (--vulkan, --opengl or --opengl-compat");
+                optimization_level = meap::choose_at_most_one! {
+                    flag("optimization-zero").desc("no optimization").some_if(shaderc::OptimizationLevel::Zero),
+                    flag("optimization-size").desc("optimize for size").some_if(shaderc::OptimizationLevel::Size),
+                    flag("optimization-performance").desc("optimize for performance").some_if(shaderc::OptimizationLevel::Performance),
+                }.required_general("choose a target env (--optimization-zero, --optimization-size or --optimization-performance");
                 debug = flag("debug");
             } in {
-                Args { shader_kind, target_env, debug }
+                Args { shader_kind, target_env, optimization_level, debug }
             }
         }
     }
@@ -34,6 +40,7 @@ fn main() {
     let Args {
         shader_kind,
         target_env,
+        optimization_level,
         debug,
     } = Args::parser().with_help_default().parse_env_or_exit();
     let mut buffer = String::new();
@@ -53,7 +60,7 @@ fn main() {
     if debug {
         compile_options.set_generate_debug_info();
     }
-    compile_options.set_optimization_level(shaderc::OptimizationLevel::Performance);
+    compile_options.set_optimization_level(optimization_level);
     compile_options.set_warnings_as_errors();
     match compiler.compile_into_spirv(&buffer, shader_kind, "stdin", "main", None) {
         Ok(artefact) => io::stdout()
