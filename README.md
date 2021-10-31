@@ -1,7 +1,7 @@
 # Shader Translator
 
 [![Version](https://img.shields.io/crates/v/shader-translator.svg)](https://crates.io/crates/shader-translator)
-[![dependency status](https://deps.rs/repo/github/stevebob/shader-translator/status.svg)](https://deps.rs/repo/github/stevebob/shader-translator)
+[![dependency status](https://deps.rs/repo/github/gridbugs/shader-translator/status.svg)](https://deps.rs/repo/github/gridbugs/shader-translator)
 
 
 This is a binary wrapper of [shaderc](https://crates.io/crates/shaderc) which compiles
