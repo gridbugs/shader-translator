@@ -11,5 +11,5 @@ repository = "https://github.com/gridbugs/shader-translator"
 
 [dependencies]
 shaderc = "0.7"
-meap = "0.4"
+meap = "0.5"
 env_logger = "0.8"
